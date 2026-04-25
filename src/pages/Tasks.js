@@ -4,12 +4,12 @@ import api from '../services/api';
 
 function Tasks () {
     const [tasks, setTasks] = useState([]);
-    const [tittle, setTittle] = useState('');
+    const [title, setTitle] = useState('');
     const navigate = useNavigate();
 
     const fetchTasks = async () => {
         try {
-            const response = await api.get('/tasks');
+            const response = await api.get('/tasks/');
             setTasks(response.data);
         } catch (err) {
             navigate('/');
@@ -23,8 +23,8 @@ function Tasks () {
     const handleCreate = async (e) => {
         e.preventDefault();
         try {
-            await api.post('/tasks', {tittle});
-            setTittle('');
+            await api.post('/tasks/', {title, description: '', priority: 'media'});
+            setTitle('');
             fetchTasks();
 
         } catch (err) {
@@ -34,7 +34,7 @@ function Tasks () {
 
     const handleDelete = async (id) => {
         try {
-            await api.delete(`/tasks/${id}`);
+            await api.delete(`/tasks/${id}/`);
             fetchTasks();
         } catch (err) {
             console.error(err);
@@ -56,15 +56,15 @@ function Tasks () {
                 <input
                     type="text"
                     placeholder="Nova tarefa"
-                    value= {tittle}
-                    onChange={(e) => setTittle(e.target.value)} 
+                    value= {title}
+                    onChange={(e) => setTitle(e.target.value)} 
                 />
                 <button type ="submit"> Adicionar</button>
             </form>
             <ul>
                 {tasks.map((task)  => (
                 <li key={task.id}>
-                    {task.titlle}
+                    {task.title}
                     <button onClick={() => handleDelete(task.id)}>Remover</button>
                 </li>
                 ))}
@@ -73,3 +73,6 @@ function Tasks () {
 
     );
 }
+
+export default Tasks;
+
