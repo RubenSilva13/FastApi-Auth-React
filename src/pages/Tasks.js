@@ -5,6 +5,8 @@ import api from '../services/api';
 function Tasks () {
     const [tasks, setTasks] = useState([]);
     const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [priority, setPriority] = useState('media');
     const navigate = useNavigate();
 
     const fetchTasks = async () => {
@@ -23,8 +25,10 @@ function Tasks () {
     const handleCreate = async (e) => {
         e.preventDefault();
         try {
-            await api.post('/tasks/', {title, description: '', priority: 'media'});
+            await api.post('/tasks/', { title, description, priority });
             setTitle('');
+            setDescription('');
+            setPriority('media');
             fetchTasks();
 
         } catch (err) {
@@ -59,12 +63,28 @@ function Tasks () {
                     value= {title}
                     onChange={(e) => setTitle(e.target.value)} 
                 />
+                <input
+                    type="text"
+                    placeholder="Descrição"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                />
+                <select
+                    value={priority}
+                    onChange={(e) => setPriority(e.target.value)}
+                >
+                    <option value="baixa">Baixa</option>
+                    <option value="media">Média</option>
+                    <option value="alta">Alta</option>
+                </select>                
                 <button type ="submit"> Adicionar</button>
             </form>
             <ul>
                 {tasks.map((task)  => (
                 <li key={task.id}>
-                    {task.title}
+                    <strong>{task.title}</strong>
+                    {task.description && <p>{task.description}</p>}
+                    <span>Prioridade: {task.priority}</span>
                     <button onClick={() => handleDelete(task.id)}>Remover</button>
                 </li>
                 ))}
