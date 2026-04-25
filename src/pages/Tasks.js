@@ -34,7 +34,7 @@ function Tasks () {
 
     const handleDelete = async (id) => {
         try {
-            await api.delete(`/tasks/${id}/`);
+            await api.delete(`/tasks/${id}`);
             fetchTasks();
         } catch (err) {
             console.error(err);
