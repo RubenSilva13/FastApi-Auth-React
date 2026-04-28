@@ -7,11 +7,20 @@ function Tasks () {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [priority, setPriority] = useState('media');
+    const [filterPriority, setFilterPriority] = useState('');
+    const [filterCompleted, setFilterCompleted] = useState('');
+    const [editId, setEditId] = useState(null);
+    const [editTitle, setEditTitle] = useState('');
+    const [editDescription, setEditDescription] = useState('');
+    const [editPriority, setEditPriority] = useState('media');
     const navigate = useNavigate();
 
     const fetchTasks = async () => {
         try {
-            const response = await api.get('/tasks/');
+            let url = '/tasks/';
+            if (filterPriority) url += `priority=${filterPriority}&`;
+            if (filterCompleted !== '') url += `completed=${filterCompleted}`;
+            const response = await api.get(url);
             setTasks(response.data);
         } catch (err) {
             navigate('/');
@@ -20,7 +29,8 @@ function Tasks () {
 
     useEffect(() => {
         fetchTasks();
-    }, []);
+    }, [filterPriority, filterCompleted]);
+
 
     const handleCreate = async (e) => {
         e.preventDefault();
@@ -30,7 +40,6 @@ function Tasks () {
             setDescription('');
             setPriority('media');
             fetchTasks();
-
         } catch (err) {
             console.error(err);
         }
@@ -45,6 +54,31 @@ function Tasks () {
         }
     }; 
 
+    const handleComplete = async (task) => {
+      try {
+          await api.put(`/tasks/${task.id}/`, {completed: !task.completed });
+          fetchTasks();
+      } catch (err) {
+          console.error(err);
+      }
+    }
+
+    const handleEdit = (task) => {
+      setEditId(task.id);
+      setEditTitle(task.title);
+      setEditDescription(task.description || '');
+      setEditPriority(task.priority);
+    }
+
+    const handleUpdate = async (id) => {
+      try {
+          await api.put(`/tasks/${id}/`, { title: editTitle, description: editDescription, priority: editPriority });
+          setEditId(null);
+          fetchTasks();
+      } catch (err) {
+          console.error(err);
+      }
+    }
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -52,7 +86,7 @@ function Tasks () {
     };
 
 
-    return (
+ return (
   <div className="min-h-screen bg-gray-100 p-8">
     <div className="max-w-2xl mx-auto">
       <div className="flex justify-between items-center mb-6">
