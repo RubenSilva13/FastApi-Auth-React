@@ -5,6 +5,7 @@ Frontend em React para a API de autenticação e gestão de tarefas.
 ## 🔗 Links
 - **Live Demo:** https://fast-api-auth-react.vercel.app
 - **Backend API:** https://fastapi-auth-rest-production.up.railway.app
+- **API Docs (Swagger):** https://fastapi-auth-rest-production.up.railway.app/docs
 
 ## 🛠️ Stack
 - React
