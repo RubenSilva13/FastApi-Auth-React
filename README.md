@@ -10,7 +10,7 @@ Frontend em React para a API de autenticação e gestão de tarefas.
 ## 🛠️ Stack
 - React
 - JavaScript
-- CSS
+- Tailwind CSS
 
 ## ✨ Funcionalidades
 - Registo e login de utilizadores
