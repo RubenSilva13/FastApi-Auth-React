@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 
 function Register() {
+    const [username, setUsername] = useState('');
     const [email, setEmail] = useState ('');
     const [password, setPassword] = useState ('');
     const [error, setError] = useState('');
@@ -11,7 +12,7 @@ function Register() {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            await api.post('/auth/register', {email, password})
+            await api.post('/auth/register', {username, email, password})
             navigate('/');
         }catch (err) {
             setError('Falha no registro. Verifique suas credenciais e tente novamente.');
@@ -27,6 +28,13 @@ function Register() {
         <input
           type="text"
           placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          type="text"
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
