@@ -9,7 +9,10 @@ Frontend em React para uma API de autenticação e gestão de tarefas, com auten
 
 ## 📸 Screenshots
 
-<!-- Põe o cursor na linha em branco aqui em baixo e arrasta as tuas 3 imagens (registo, login, tarefas). -->
+<img width="1919" height="913" alt="Captura de ecrã 2026-08-26 173729" src="https://github.com/user-attachments/assets/5607787d-df6c-44bc-af4c-fe42ea2c8c85" />
+<img width="1908" height="915" alt="Captura de ecrã 2026-08-26 172838" src="https://github.com/user-attachments/assets/b20421b4-0cf0-4c0e-85a3-0a1ab0e884f5" />
+<img width="1919" height="909" alt="Captura de ecrã 2026-08-26 161533" src="https://github.com/user-attachments/assets/f15eb39e-9be3-459f-b367-441ee86fbc4d" />
+
 
 
 ## 🛠️ Stack
